@@ -1,5 +1,3 @@
-// public/app.js
-
 // Função para gerar uma senha aleatória
 function generatePassword() {
     const length = 12;
@@ -22,6 +20,16 @@ function calculateSum() {
     document.getElementById('calculation-result').textContent = result;
 }
 
+// Função para remover a senha gerada
+function removePassword() {
+    document.getElementById('generated-password').textContent = '';
+}
+
+// Função para remover o resultado da calculadora
+function removeCalculation() {
+    document.getElementById('calculation-result').textContent = '';
+}
+
 // Função para adicionar uma anotação
 function addNote() {
     const noteInput = document.getElementById('note-input');
@@ -29,6 +37,15 @@ function addNote() {
     if (note) {
         const li = document.createElement('li');
         li.textContent = note;
+
+        // Criar o botão de remover
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Remover';
+        removeBtn.onclick = () => {
+            li.remove(); // Remove a anotação
+        };
+
+        li.appendChild(removeBtn); // Adiciona o botão de remover à lista
         document.getElementById('notes-list').appendChild(li);
         noteInput.value = ''; // Limpar o input
     }
@@ -37,7 +54,9 @@ function addNote() {
 // Inicializa os event listeners
 function init() {
     document.getElementById('generate-password-btn').onclick = generatePassword;
+    document.getElementById('remove-password-btn').onclick = removePassword;
     document.getElementById('calculate-btn').onclick = calculateSum;
+    document.getElementById('remove-calculation-btn').onclick = removeCalculation;
     document.getElementById('add-note-btn').onclick = addNote;
 }
 
@@ -48,5 +67,7 @@ document.addEventListener('DOMContentLoaded', init);
 module.exports = {
     generatePassword,
     calculateSum,
-    addNote
+    addNote,
+    removePassword,
+    removeCalculation
 };
